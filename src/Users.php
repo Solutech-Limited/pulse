@@ -38,19 +38,21 @@ class Users implements ResolvesUsers
      */
     public function load(Collection $keys): self
     {
-        $auth = app('auth');
+        // disabled for now since my app uses keycloak and not eloquent for user management
+        
+        // $auth = app('auth');
 
-        $provider = $auth->createUserProvider(
-            config("auth.guards.{$auth->getDefaultDriver()}.provider")
-        );
+        // $provider = $auth->createUserProvider(
+        //     config("auth.guards.{$auth->getDefaultDriver()}.provider")
+        // );
 
-        if ($provider instanceof EloquentUserProvider) {
-            $model = $provider->getModel();
+        // if ($provider instanceof EloquentUserProvider) {
+        //     $model = $provider->getModel();
 
-            $this->resolvedUsers = $model::findMany($keys);
-        } else {
-            $this->resolvedUsers = $keys->map(fn ($key) => $provider->retrieveById($key));
-        }
+        //     $this->resolvedUsers = $model::findMany($keys);
+        // } else {
+        //     $this->resolvedUsers = $keys->map(fn ($key) => $provider->retrieveById($key));
+        // }
 
         return $this;
     }
