@@ -38,7 +38,7 @@ class LegacyUsers implements ResolvesUsers
      */
     public function load(Collection $keys): self
     {
-        $this->resolvedUsers = ($this->callback)($keys);
+        // $this->resolvedUsers = ($this->callback)($keys);
 
         return $this;
     }
@@ -50,15 +50,12 @@ class LegacyUsers implements ResolvesUsers
      */
     public function find(int|string|null $key): object
     {
-        $user = $this->resolvedUsers->firstWhere('id', $key);
+        // $user = $this->resolvedUsers->firstWhere('id', $key);
 
         return (object) [
-            'name' => $user['name'] ?? "ID: $key",
-            'extra' => $user['extra'] ?? $user['email'] ?? '',
-            'avatar' => $user['avatar'] ?? (($user['email'] ?? false)
-                ? sprintf('https://gravatar.com/avatar/%s?d=mp', hash('sha256', trim(strtolower($user['email']))))
-                : sprintf('https://gravatar.com/avatar?d=mp')
-            ),
+            'name' => "ID: $key",
+            'extra' => '',
+            'avatar' => sprintf('https://gravatar.com/avatar?d=mp')
         ];
     }
 }
