@@ -64,17 +64,17 @@ class Users implements ResolvesUsers
      */
     public function find(int|string|null $key): object
     {
-        $user = $this->resolvedUsers->first(fn ($user) => $this->key($user) == $key);
+        // $user = $this->resolvedUsers->first(fn ($user) => $this->key($user) == $key);
 
-        if ($this->fieldResolver !== null && $user !== null) {
-            return (object) ($this->fieldResolver)($user);
-        }
+        // if ($this->fieldResolver !== null && $user !== null) {
+        //     return (object) ($this->fieldResolver)($user);
+        // }
 
         return (object) [
-            'name' => $user->name ?? "ID: $key",
-            'extra' => $user->email ?? '',
-            'avatar' => $user->avatar ?? (($user->email ?? false)
-                ? sprintf('https://gravatar.com/avatar/%s?d=mp', hash('sha256', trim(strtolower($user->email)))) // @phpstan-ignore property.nonObject
+            'name' => "ID: $key",
+            'extra' => '',
+            'avatar' => ((false)
+                ? sprintf('https://gravatar.com/avatar/%s?d=mp', hash('sha256', trim(strtolower('test@mail.com')))) // @phpstan-ignore property.nonObject
                 : sprintf('https://gravatar.com/avatar?d=mp')
             ),
         ];
